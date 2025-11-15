@@ -104,96 +104,96 @@ pm2 stop mactech
 pm2 start mactech
 ```
 
-### Nginx Komutları
+### Nginx Commands
 ```bash
-# Nginx durumu
+# Nginx status
 sudo systemctl status nginx
 
 # Restart
 sudo systemctl restart nginx
 
-# Konfigürasyon testi
+# Configuration test
 sudo nginx -t
 
-# Logları görüntüle
+# View logs
 sudo tail -f /var/log/nginx/access.log
 sudo tail -f /var/log/nginx/error.log
 ```
 
-### Sistem Logları
+### System Logs
 ```bash
-# Uygulama logları
+# Application logs
 pm2 logs mactech --lines 100
 
-# Sistem kullanımı
+# System usage
 pm2 monit
 
-# Disk kullanımı
+# Disk usage
 df -h
 
-# Memory kullanımı
+# Memory usage
 free -h
 ```
 
-## 🔒 SSL Sertifikası (HTTPS)
+## SSL Certificate (HTTPS)
 
-### Let's Encrypt ile ücretsiz SSL
+### Free SSL with Let's Encrypt
 ```bash
-# Certbot kurulumu (setup script'te yapılır)
+# Install Certbot (done in setup script)
 sudo apt install certbot python3-certbot-nginx
 
-# SSL sertifikası al
+# Obtain SSL certificate
 sudo certbot --nginx -d mactech.example.com
 
-# Otomatik yenileme testi
+# Test automatic renewal
 sudo certbot renew --dry-run
 ```
 
-## 🚨 Sorun Giderme
+## Troubleshooting
 
-### Deployment başarısız oluyor
-1. GitHub Actions loglarını kontrol edin: **Actions** sekmesi
-2. VPS'te SSH bağlantısını test edin: `ssh -i ~/.ssh/github_actions user@host`
-3. VPS'te disk alanı kontrol edin: `df -h`
+### Deployment fails
+1. Check GitHub Actions logs: **Actions** tab
+2. Test SSH connection on VPS: `ssh -i ~/.ssh/github_actions user@host`
+3. Check disk space on VPS: `df -h`
 
-### Uygulama çalışmıyor
+### Application not running
 ```bash
-# PM2 durumunu kontrol et
+# Check PM2 status
 pm2 status
 
-# Logları incele
+# View logs
 pm2 logs mactech --lines 50
 
-# Manuel başlat
+# Start manually
 cd /var/www/mactech
 pnpm start
 ```
 
-### Nginx hatası
+### Nginx error
 ```bash
-# Konfigürasyon testi
+# Configuration test
 sudo nginx -t
 
-# Error loglarını kontrol et
+# Check error logs
 sudo tail -f /var/log/nginx/error.log
 
-# Nginx restart
+# Restart Nginx
 sudo systemctl restart nginx
 ```
 
-### Port 3000 kullanımda
+### Port 3000 in use
 ```bash
-# Port kullanan process'i bul
+# Find process using port
 sudo lsof -i :3000
 
-# Process'i öldür
+# Kill process
 sudo kill -9 <PID>
 ```
 
-## 🔧 Yapılandırma
+## Configuration
 
 ### Environment Variables
-VPS'te `.env.local` dosyası oluşturun:
+Create `.env.local` file on VPS:
 ```bash
 cd /var/www/mactech
 nano .env.local
@@ -204,13 +204,13 @@ NODE_ENV=production
 PORT=3000
 ```
 
-### PM2 Ecosystem (Gelişmiş)
+### PM2 Ecosystem (Advanced)
 ```bash
 cd /var/www/mactech
 pm2 ecosystem
 ```
 
-`ecosystem.config.js` dosyasını düzenleyin:
+Edit `ecosystem.config.js` file:
 ```javascript
 module.exports = {
   apps: [{
@@ -228,15 +228,15 @@ module.exports = {
 }
 ```
 
-Başlat:
+Start:
 ```bash
 pm2 start ecosystem.config.js
 ```
 
-## 📈 Performans Optimizasyonu
+## Performance Optimization
 
 ### Nginx Caching
-`/etc/nginx/sites-available/mactech` dosyasına cache ekleyin (setup script'te vardır).
+Add cache to `/etc/nginx/sites-available/mactech` file (included in setup script).
 
 ### PM2 Cluster Mode
 ```bash
@@ -244,50 +244,50 @@ pm2 start npm --name "mactech" -i max -- start
 ```
 
 ### Gzip Compression
-Nginx konfigürasyonunda aktif (setup script'te vardır).
+Active in Nginx configuration (included in setup script).
 
-## 🔄 Güncelleme ve Bakım
+## Updates and Maintenance
 
-### Node.js güncelleme
+### Update Node.js
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt update && sudo apt upgrade nodejs
 ```
 
-### pnpm güncelleme
+### Update pnpm
 ```bash
 npm install -g pnpm@latest
 ```
 
-### Sistem güncellemeleri
+### System updates
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo reboot  # Gerekirse
+sudo reboot  # If needed
 ```
 
-## 📞 Yardım
+## Help
 
-Sorun yaşarsanız:
-1. GitHub Issues açın
-2. PM2 ve Nginx loglarını kontrol edin
-3. VPS sistem kaynaklarını kontrol edin (`htop`, `df -h`, `free -h`)
+If you experience issues:
+1. Open GitHub Issues
+2. Check PM2 and Nginx logs
+3. Check VPS system resources (`htop`, `df -h`, `free -h`)
 
-## 📝 Notlar
+## Notes
 
-- **Port 3000**: Next.js uygulaması bu portta çalışır
-- **Nginx**: Port 80/443'ten gelen istekleri 3000'e yönlendirir
-- **PM2**: Uygulama crash olursa otomatik restart eder
-- **GitHub Actions**: Main branch'e push olduğunda otomatik deploy olur
+- **Port 3000**: Next.js application runs on this port
+- **Nginx**: Forwards requests from port 80/443 to 3000
+- **PM2**: Automatically restarts application if it crashes
+- **GitHub Actions**: Automatic deployment when pushing to main branch
 
-## 🎯 Production Checklist
+## Production Checklist
 
-- [ ] VPS setup tamamlandı
-- [ ] SSH key oluşturuldu
-- [ ] GitHub Secrets eklendi
-- [ ] Nginx kuruldu ve yapılandırıldı
-- [ ] SSL sertifikası alındı
-- [ ] PM2 başlatma scripti çalışıyor
-- [ ] Firewall yapılandırıldı
-- [ ] Domain DNS kayıtları yapılandırıldı
-- [ ] İlk deployment başarılı
-- [ ] Monitoring aktif
+- [ ] VPS setup completed
+- [ ] SSH key created
+- [ ] GitHub Secrets added
+- [ ] Nginx installed and configured
+- [ ] SSL certificate obtained
+- [ ] PM2 startup script running
+- [ ] Firewall configured
+- [ ] Domain DNS records configured
+- [ ] First deployment successful
+- [ ] Monitoring active

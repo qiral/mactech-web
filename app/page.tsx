@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Sparkles, Ticket, Network, Lightbulb, Linkedin, ExternalLink } from 'lucide-react'
+import { ArrowRight, Sparkles, Ticket, Network, Lightbulb, Linkedin, ExternalLink, Clock } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 
@@ -133,6 +133,8 @@ const HIGHLIGHTS = [
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [showCountdown, setShowCountdown] = useState(false)
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -140,6 +142,29 @@ export default function Home() {
     }
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  useEffect(() => {
+    const targetDate = new Date('2025-12-03T10:00:00').getTime()
+    
+    const updateCountdown = () => {
+      const now = new Date().getTime()
+      const distance = targetDate - now
+      
+      if (distance > 0) {
+        setCountdown({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000)
+        })
+      }
+    }
+    
+    updateCountdown()
+    const interval = setInterval(updateCountdown, 1000)
+    
+    return () => clearInterval(interval)
   }, [])
 
   const scrollToSection = (sectionId: string) => {
@@ -175,12 +200,68 @@ export default function Home() {
 
       <section className="pt-24 pb-32 px-6 relative">
         <div className="max-w-5xl mx-auto">
-          <div className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/5">
+          <div 
+            className="mb-8 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/5 relative cursor-pointer"
+            onMouseEnter={() => setShowCountdown(true)}
+            onMouseLeave={() => setShowCountdown(false)}
+          >
             <Sparkles className="w-4 h-4 text-purple-400" />
             <span className="text-sm text-purple-300">{EVENT_CONFIG.date}</span>
+            
+            <div 
+              className={`absolute top-full left-0 mt-2 bg-black/95 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-6 shadow-2xl transition-all duration-300 ease-out ${
+                showCountdown 
+                  ? 'opacity-100 translate-y-0 pointer-events-auto' 
+                  : 'opacity-0 -translate-y-2 pointer-events-none'
+              }`}
+              style={{ minWidth: '320px' }}
+            >
+              <div className="flex items-center gap-2 mb-4 text-purple-300">
+                <Clock className="w-4 h-4" />
+                <span className="text-xs font-semibold uppercase tracking-wider">Etkinliğe Kalan Süre</span>
+              </div>
+              
+              <div className="grid grid-cols-4 gap-3">
+                <div className="text-center">
+                  <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg p-3 mb-2 border border-purple-500/20">
+                    <div className="text-2xl font-black text-white tabular-nums">
+                      {countdown.days}
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-400 font-medium">Gün</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg p-3 mb-2 border border-purple-500/20">
+                    <div className="text-2xl font-black text-white tabular-nums">
+                      {countdown.hours.toString().padStart(2, '0')}
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-400 font-medium">Saat</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg p-3 mb-2 border border-purple-500/20">
+                    <div className="text-2xl font-black text-white tabular-nums">
+                      {countdown.minutes.toString().padStart(2, '0')}
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-400 font-medium">Dakika</div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg p-3 mb-2 border border-purple-500/20 animate-pulse">
+                    <div className="text-2xl font-black text-white tabular-nums">
+                      {countdown.seconds.toString().padStart(2, '0')}
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-400 font-medium">Saniye</div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <h1 className="text-7xl md:text-8xl font-black leading-tight mb-6 tracking-tighter">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight mb-6 tracking-tighter">
             Geleceğin Teknolojilerini
             <br />
             <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-pulse">
@@ -193,12 +274,12 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-16">
-            <Link href="/register">
-              <Button size="lg" className="bg-white text-black hover:bg-white/90 font-bold">
+            <Link href="/register" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full bg-white text-black hover:bg-white/90 font-bold">
                 Hemen Kaydolun <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/5">
+            <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/20 text-white hover:bg-white/5">
               Daha Fazla Bilgi
             </Button>
           </div>

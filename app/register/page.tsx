@@ -28,7 +28,7 @@ export default function RegisterPage() {
             <span className="text-xl font-bold tracking-tight">MacTech Zirvesi</span>
           </Link>
           <Link href="/">
-            <Button variant="outline" className="border-white/20 text-white hover:bg-white/5">
+            <Button variant="outline" className="border-white/20 text-white hover:bg-white hover:text-black hover:border-white">
               Etkinliğe Dön
             </Button>
           </Link>
