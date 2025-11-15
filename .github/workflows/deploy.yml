@@ -35,11 +35,19 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Verify TypeScript installation
+        run: |
+          pnpm list typescript || echo "TypeScript not found in dependencies"
+          node -e "console.log('TypeScript path:', require.resolve('typescript'))" || echo "TypeScript module resolution failed"
+
       - name: Run linter
         run: pnpm lint || echo "Lint warnings ignored"
+        continue-on-error: true
 
       - name: Build project
-        run: pnpm build
+        run: |
+          echo "Starting build process..."
+          pnpm build
         env:
           NODE_ENV: production
 
@@ -79,10 +87,19 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT || 22 }}
           script: |
+            set -e
             cd ${{ secrets.VPS_APP_PATH || '/var/www/mactech' }}
+            
+            echo "Pulling latest changes..."
             git pull origin main
-            pnpm install --frozen-lockfile --prod
+            
+            echo "Installing dependencies..."
+            pnpm install --frozen-lockfile
+            
+            echo "Building application..."
             pnpm build
+            
+            echo "Restarting PM2..."
             pm2 restart mactech || pm2 start npm --name "mactech" -- start
             pm2 save
             
@@ -92,8 +109,8 @@ jobs:
         if: always()
         run: |
           if [ "${{ job.status }}" == "success" ]; then
-            echo "Deployment to VPS completed successfully!"
+            echo "✅ Deployment to VPS completed successfully!"
           else
-            echo "Deployment failed!"
+            echo "❌ Deployment failed! Check logs above for details."
             exit 1
           fi
