@@ -11,7 +11,8 @@ APP_NAME="mactech"
 APP_PATH="/var/www/mactech"
 APP_PORT="3000"
 DOMAIN="mactech.macsec.club" 
-GIT_REPO="https://github.com/Hikmettpk/MacTech.git"
+GIT_REPO="git@github.com:metharda/mactech.git"
+CERTBOT_EMAIL="info@macsec.club"
 
 echo -e "${GREEN}1. Updating system packages...${NC}"
 sudo apt update && sudo apt upgrade -y
@@ -20,8 +21,7 @@ echo -e "${GREEN}2. Installing Node.js and pnpm...${NC}"
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
 
-curl -fsSL https://get.pnpm.io/install.sh | sh -
-source ~/.bashrc
+sudo npm install -g pnpm
 
 echo -e "${GREEN}3. Installing PM2 (process manager)...${NC}"
 sudo npm install -g pm2
@@ -50,10 +50,21 @@ pm2 save
 
 echo -e "${GREEN}10. Creating Nginx configuration...${NC}"
 sudo tee /etc/nginx/sites-available/$APP_NAME > /dev/null <<EOF
+# IP üzerinden doğrudan HTTP erişimini engelle (default server)
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+    return 444;  # Bağlantıyı kapat
+}
+
+# Domain için HTTP server (Certbot HTTPS ekleyecek)
 server {
     listen 80;
+    listen [::]:80;
     server_name $DOMAIN;
-
+    
+    # Geçici olarak uygulamaya proxy et (Certbot için ACME challenge gerekli)
     location / {
         proxy_pass http://localhost:$APP_PORT;
         proxy_http_version 1.1;
@@ -95,22 +106,51 @@ sudo ufw --force enable
 echo -e "${GREEN}12. Installing Certbot for SSL...${NC}"
 sudo apt install -y certbot python3-certbot-nginx
 
+echo -e "${GREEN}13. Obtaining SSL certificate automatically...${NC}"
+sudo certbot --nginx \
+    --non-interactive \
+    --agree-tos \
+    --email "$CERTBOT_EMAIL" \
+    --domains "$DOMAIN" \
+    --redirect
+
+echo -e "${GREEN}14. Setting up SSL certificate auto-renewal...${NC}"
+sudo systemctl enable certbot.timer
+sudo systemctl start certbot.timer
+
+echo -e "${GREEN}15. Blocking IP-based HTTPS access...${NC}"
+# Certbot sertifika aldıktan sonra IP üzerinden HTTPS erişimini engellemek için
+# default SSL server bloğunu ekle
+sudo tee -a /etc/nginx/sites-available/$APP_NAME > /dev/null <<EOF
+
+# IP üzerinden doğrudan HTTPS erişimini engelle (default SSL server)
+server {
+    listen 443 ssl http2 default_server;
+    listen [::]:443 ssl http2 default_server;
+    server_name _;
+    
+    # Certbot'un oluşturduğu sertifikayı kullan
+    ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$DOMAIN/privkey.pem;
+    
+    return 444;  # Bağlantıyı kapat
+}
+EOF
+
+echo -e "${GREEN}16. Adding security headers to HTTPS server...${NC}"
+# Certbot'un oluşturduğu HTTPS bloğuna güvenlik başlıkları ekle
+sudo sed -i "/server_name $DOMAIN;/a\\
+    # Güvenlik başlıkları\\
+    add_header Strict-Transport-Security \"max-age=31536000; includeSubDomains\" always;\\
+    add_header X-Frame-Options \"SAMEORIGIN\" always;\\
+    add_header X-Content-Type-Options \"nosniff\" always;\\
+    add_header X-XSS-Protection \"1; mode=block\" always;" /etc/nginx/sites-available/$APP_NAME
+
+# Nginx'i yeniden test et ve restart et
+sudo nginx -t
+sudo systemctl restart nginx
+
 echo ""
 echo -e "${GREEN}VPS setup completed successfully!${NC}"
+echo -e "${GREEN}SSL certificate obtained and HTTPS is active!${NC}"
 echo ""
-echo -e "${YELLOW}Next steps:${NC}"
-echo "1. Obtain SSL certificate: sudo certbot --nginx -d $DOMAIN"
-echo "2. View PM2 logs: pm2 logs $APP_NAME"
-echo "3. Check application status: pm2 status"
-echo "4. Check Nginx status: sudo systemctl status nginx"
-echo ""
-echo -e "${YELLOW}Values to add to GitHub Secrets:${NC}"
-echo "VPS_HOST: $(curl -s ifconfig.me)"
-echo "VPS_USERNAME: $USER"
-echo "VPS_PORT: 22"
-echo "VPS_APP_PATH: $APP_PATH"
-echo "VPS_SSH_KEY: Copy contents of ~/.ssh/id_rsa"
-echo ""
-echo -e "${GREEN}To create SSH Key:${NC}"
-echo "ssh-keygen -t rsa -b 4096 -C 'github-actions'"
-echo "cat ~/.ssh/id_rsa"
