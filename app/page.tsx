@@ -13,7 +13,7 @@ const EVENT_CONFIG = {
   location: 'Marmara Üniversitesi, Maltepe Kampüsü, İstanbul',
   attendees: '300+',
   email: 'info@macsec.club',
-  phone: '+90 561 612 58 67',
+  phone: '+90 553 048 80 18',
   social: {
     twitter: 'https://x.com/macsecommunity',
     instagram: 'https://www.instagram.com/macsecommunity/',
