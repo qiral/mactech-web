@@ -16,7 +16,6 @@ export const metadata: Metadata = {
         media: '(prefers-color-scheme: light)',
       }
     ],
-    apple: '/apple-icon.png',
   },
 }
 

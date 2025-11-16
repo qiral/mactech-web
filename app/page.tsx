@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Sparkles, Ticket, Network, Lightbulb, Linkedin, ExternalLink, Clock } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -40,14 +41,6 @@ const SPEAKERS = [
     linkedin: 'https://www.linkedin.com/in/lemi-orhan-ergin/'
   },
   { 
-    name: 'Emrah Mete', 
-    title: 'Cloud Architect', 
-    company: 'Microsoft', 
-    image: '/speakers/emrah-mete.jpg',
-    accent: 'from-pink-500',
-    linkedin: 'https://www.linkedin.com/in/emrahmete/'
-  },
-  { 
     name: 'Atıl Samancıoğlu', 
     title: 'Founder of Academy Club & CTO at Orphex', 
     company: 'Academy Club', 
@@ -56,21 +49,21 @@ const SPEAKERS = [
     linkedin: 'https://www.linkedin.com/in/atilsamancioglu/'
   },
   { 
-    name: 'Alican Yıldırım', 
-    title: 'IT & Administrative Manager at Pasaport Pizza', 
-    company: 'Pasaport Pizza', 
-    image: '/speakers/alican-yildirim.jpg',
-    accent: 'from-emerald-500',
-    linkedin: 'https://www.linkedin.com/in/alican-yildirim/'
+    name: 'Barış Yüceses', 
+    title: 'AI Architect & Ex-Getir CTO', 
+    company: 'Indisol', 
+    image: '/speakers/baris-yuceses.jpg',
+    accent: 'from-blue-500',
+    linkedin: 'https://www.linkedin.com/in/barisyuceses/'
   },
   { 
-    name: 'Emre Savcı', 
-    title: 'Tech Lead Engineer at Trendyol',
-    company: 'Trendyol',
-    image: '/speakers/emre-savci.jpg',
-    accent: 'from-amber-500',
-    linkedin: 'https://www.linkedin.com/in/emresavci/'
-  }
+    name: 'Kardel Rüveyda Çetin', 
+    title: 'Software Development Lead', 
+    company: 'Doğuş Teknoloji', 
+    image: '/speakers/ruveyda-cetin.jpg',
+    accent: 'from-blue-500',
+    linkedin: 'https://www.linkedin.com/in/kardelruveydacetin/'
+  },
 ]
 
 const SPONSORS = [
@@ -187,7 +180,7 @@ export default function Home() {
       <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/mactech-logo.jpg" alt="MacTech Logo" className="w-8 h-8" />
+            <Image src="/mactech-logo.jpg" alt="MacTech Logo" width={32} height={32} className="w-8 h-8" />
             <span className="text-xl font-bold tracking-tight">{EVENT_CONFIG.name}</span>
           </div>
           <Link href="/register">
@@ -351,10 +344,11 @@ export default function Home() {
                 className="group relative overflow-hidden rounded-xl border border-white/10 hover:border-purple-400/50 transition-all duration-300 cursor-pointer"
               >
                 <div className="relative h-64 md:h-80 overflow-hidden bg-white/5">
-                  <img 
+                  <Image
                     src={speaker.image || "/placeholder.svg"} 
                     alt={speaker.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
                   
@@ -416,10 +410,11 @@ export default function Home() {
                 className="group relative overflow-hidden rounded-xl border border-white/10 hover:border-purple-400/50 transition-all duration-300 bg-white/5 hover:bg-white/10 cursor-pointer w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
               >
                 <div className="relative aspect-square overflow-hidden bg-black/50">
-                  <img 
+                  <Image
                     src={sponsor.image || "/placeholder.svg"} 
                     alt={sponsor.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60" />
                   
@@ -459,7 +454,7 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-8 mb-12">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <img src="/mactech-logo.jpg" alt="MacTech Logo" className="w-6 h-6" />
+                <Image src="/mactech-logo.jpg" alt="MacTech Logo" width={24} height={24} className="w-6 h-6" />
                 <span className="font-black">{EVENT_CONFIG.name}</span>
               </div>
               <p className="text-sm text-gray-500">Bütün yeniliklerin buluştuğu zirve.</p>

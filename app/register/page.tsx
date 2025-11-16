@@ -1,8 +1,8 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Sparkles } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect } from 'react'
 
 const REGISTER_URL = 'https://lu.ma/embed-checkout/evt-M77alrdLvnfeAdE'
@@ -24,7 +24,7 @@ export default function RegisterPage() {
       <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/mactech-logo.jpg" alt="MacTech Zirvesi" className="w-8 h-8 rounded-lg" />
+            <Image src="/mactech-logo.jpg" alt="MacTech Zirvesi" width={32} height={32} className="w-8 h-8 rounded-lg" />
             <span className="text-xl font-bold tracking-tight">MacTech Zirvesi</span>
           </Link>
           <Link href="/">
