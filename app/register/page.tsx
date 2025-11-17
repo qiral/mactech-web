@@ -36,7 +36,7 @@ export default function RegisterPage() {
             <iframe
               src={REGISTER_URL}
               width="100%"
-              height="425"
+              height="650"
               style={{
                 border: 'none',
                 borderRadius: '12px'

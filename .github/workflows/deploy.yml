@@ -1,98 +1,27 @@
-name: CI/CD Pipeline
+name: Deploy
 
 on:
   pull_request:
-    branches:
-      - main
-    types: [opened, synchronize, reopened]
-  push:
-    branches:
-      - main
+    branches: [ main ]
+    types: [ closed ]
 
-env:
-  NODE_VERSION: '20'
-  PNPM_VERSION: '9'
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
-  test:
-    name: Test & Build
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Verify TypeScript installation
-        run: |
-          pnpm list typescript || echo "TypeScript not found in dependencies"
-          node -e "console.log('TypeScript path:', require.resolve('typescript'))" || echo "TypeScript module resolution failed"
-
-      - name: Run linter
-        run: pnpm lint
-        continue-on-error: true
-
-      - name: Build project
-        run: |
-          echo "Starting build process..."
-          pnpm build
-        env:
-          NODE_ENV: production
-
-      - name: Comment PR with build status
-        if: github.event_name == 'pull_request' && success()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Build successful! Ready for review.'
-            })
-
-      - name: Upload build artifacts
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-files
-          path: |
-            .next/
-            public/
-            package.json
-            pnpm-lock.yaml
-            next.config.ts
-          retention-days: 1
-
   deploy:
     name: Deploy to VPS
-    runs-on: ubuntu-latest
-    needs: test
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    
+    runs-on: ubuntu
+    if: |
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.base.ref == 'main' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-files
-
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -101,22 +30,36 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT || 22 }}
           script: |
-            set -e
-            cd ${{ secrets.VPS_APP_PATH || '/var/www/mactech' }}
-            
-            echo "Pulling latest changes..."
-            git pull origin main
-            
+            set -euo pipefail
+            APP_DIR=${{ secrets.VPS_APP_PATH || '/var/www/mactech' }}
+            echo "Deploying to $APP_DIR"
+            mkdir -p "$APP_DIR"
+            cd "$APP_DIR"
+
+            if [ ! -d .git ]; then
+              echo "Initializing repo..."
+              git init
+              git remote add origin git@github.com:${{ github.repository }}
+            fi
+
+            echo "Fetching and checking out main..."
+            git fetch origin main --depth=1
+            git checkout -f main || git checkout -B main
+            git reset --hard origin/main
+
             echo "Installing dependencies..."
+            if ! command -v pnpm >/dev/null 2>&1; then
+              corepack enable
+              corepack prepare pnpm@9 --activate
+            fi
             pnpm install --frozen-lockfile
-            
+
             echo "Building application..."
             pnpm build
-            
+
             echo "Restarting PM2..."
             pm2 restart mactech || pm2 start npm --name "mactech" -- start
             pm2 save
-            
             echo "Deployment successful!"
 
       - name: Deployment Status Notification
