@@ -478,20 +478,20 @@ export default function Home() {
               <div key={i}>
                 <h4 className="font-semibold mb-4 text-sm">{col.title}</h4>
                 <ul className="space-y-2">
-                  {col.links.map((link: any, j) => (
+                  {col.links.map((link: { name: string; id?: string; url?: string }, j) => (
                     <li key={j}>
                       {link.id ? (
                         <button 
-                          onClick={() => scrollToSection(link.id)}
+                          onClick={() => link.id && scrollToSection(link.id)}
                           className="text-sm text-gray-500 hover:text-white transition-colors text-left"
                         >
                           {link.name}
                         </button>
                       ) : (
                         <Link 
-                          href={link.url}
-                          target={link.url.startsWith('http') ? '_blank' : undefined}
-                          rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                          href={link.url || '#'}
+                          target={link.url?.startsWith('http') ? '_blank' : undefined}
+                          rel={link.url?.startsWith('http') ? 'noopener noreferrer' : undefined}
                           className="text-sm text-gray-500 hover:text-white transition-colors"
                         >
                           {link.name}
