@@ -1,17 +1,6 @@
 # MacTech Summit Website
 
-Official website for MacTech Computer Science Summit. Built with Next.js 15 and Tailwind CSS v4.
-
-## Features
-
-- Next.js 15 App Router
-- Tailwind CSS v4
-- TypeScript
-- Responsive Design
-- Modern UI Components (Radix UI)
-- GitHub Actions CI/CD
-- Luma.com Integration
-- SEO Optimization
+Official website for MacTech Computer Science Summit.
 
 ## Requirements
 
@@ -83,9 +72,6 @@ chmod +x vps-setup.sh
 
 3. Push to main branch - Automatic deployment will trigger!
 
-### Deploy to Vercel (Alternative)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Hikmettpk/MacTech)
 
 ## Project Structure
 
@@ -114,26 +100,3 @@ mactech/
 3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License.
-
-## Contact
-
-- Email: info@macsec.club
-- Twitter: [@macsecommunity](https://x.com/macsecommunity)
-- Instagram: [@macsecommunity](https://www.instagram.com/macsecommunity/)
-- LinkedIn: [MacSec Community](https://www.linkedin.com/company/macsecommunity/)
-
-## Acknowledgments
-
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Radix UI](https://www.radix-ui.com/)
-- [Luma](https://lu.ma/)
-- All speakers and sponsors
-
----
-
-**MacTech Summit 2025** - Where Innovation Meets Excellence
