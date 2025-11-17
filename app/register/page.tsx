@@ -3,22 +3,10 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect } from 'react'
 
-const REGISTER_URL = 'https://lu.ma/embed-checkout/evt-M77alrdLvnfeAdE'
+const REGISTER_URL = 'https://lu.ma/embed-checkout/0nz70uyt'
 
 export default function RegisterPage() {
-  useEffect(() => {
-    const script = document.createElement('script')
-    script.src = 'https://embed.lu.ma/checkout-button.js'
-    script.async = true
-    document.body.appendChild(script)
-
-    return () => {
-      document.body.removeChild(script)
-    }
-  }, [])
-
   return (
     <div className="min-h-screen bg-black text-white">
       <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
@@ -35,7 +23,7 @@ export default function RegisterPage() {
         </div>
       </nav>
 
-      <div className="pt-24 pb-24 px-6">
+      <div className="overflow-hidden pt-24 pb-24 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="mb-12 text-center">
             <h1 className="text-5xl md:text-6xl font-black leading-tight mb-6">
@@ -48,7 +36,7 @@ export default function RegisterPage() {
             <iframe
               src={REGISTER_URL}
               width="100%"
-              height="700"
+              height="425"
               style={{
                 border: 'none',
                 borderRadius: '12px'
