@@ -1,9 +1,8 @@
 name: Deploy
 
 on:
-  pull_request:
+  push:
     branches: [ main ]
-    types: [ closed ]
 
 concurrency:
   group: deploy-${{ github.ref }}
@@ -16,10 +15,7 @@ jobs:
   deploy:
     name: Deploy to VPS
     runs-on: ubuntu
-    if: |
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.base.ref == 'main' &&
-      github.event.pull_request.head.repo.full_name == github.repository
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Deploy to VPS via SSH
