@@ -15,7 +15,6 @@ jobs:
   deploy:
     name: Deploy to VPS
     runs-on: ubuntu
-    if: github.ref == 'refs/heads/main'
     
     steps:
       - name: Deploy to VPS via SSH
