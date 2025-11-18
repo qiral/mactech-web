@@ -161,7 +161,7 @@ const SPONSORS = [
   },
   { 
     name: 'Scala Yayıncılık', 
-    tier: 'İçecek Sponsoru', 
+    tier: 'Ürün Sponsoru', 
     image: '/sponsors/scala-logo.jpg', 
     webpage: 'https://www.scalakitapci.com'
   },
