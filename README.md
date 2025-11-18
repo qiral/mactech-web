@@ -2,17 +2,6 @@
 
 Official website for MacTech Computer Science Summit. Built with Next.js 15 and Tailwind CSS v4.
 
-## Features
-
-- Next.js 15 App Router
-- Tailwind CSS v4
-- TypeScript
-- Responsive Design
-- Modern UI Components (Radix UI)
-- GitHub Actions CI/CD
-- Luma.com Integration
-- SEO Optimization
-
 ## Requirements
 
 - Node.js 20+
