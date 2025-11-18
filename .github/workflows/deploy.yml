@@ -16,7 +16,7 @@ jobs:
     name: Deploy to VPS
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    
+        
     steps:
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -49,7 +49,7 @@ jobs:
               corepack prepare pnpm@9 --activate
             fi
             pnpm install --frozen-lockfile
-
+            rm -rf .next/
             echo "Building application..."
             pnpm build
 

@@ -82,9 +82,9 @@ const SPONSORS = [
     webpage: 'https://www.unicourse.co'
   },
   { 
-    name: 'Summerify', 
+    name: 'Summarify', 
     tier: 'Stand Sponsoru', 
-    image: '/sponsors/summerify-logo.jpg', 
+    image: '/sponsors/summarify-logo.jpg', 
     webpage: 'https://www.summarify.io'
   },
   { 
@@ -466,7 +466,7 @@ export default function Home() {
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-300"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60" />
+
 
                   <div className="absolute top-4 right-4 p-2 bg-black/80 backdrop-blur rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
                     <ExternalLink className="w-4 h-4" />

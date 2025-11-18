@@ -1,6 +1,6 @@
 # MacTech Summit Website
 
-Official website for MacTech Computer Science Summit.
+Official website for MacTech Computer Science Summit. Built with Next.js 15 and Tailwind CSS v4.
 
 ## Requirements
 
@@ -71,7 +71,6 @@ chmod +x vps-setup.sh
    - `VPS_APP_PATH`: `/var/www/mactech`
 
 3. Push to main branch - Automatic deployment will trigger!
-
 
 ## Project Structure
 
