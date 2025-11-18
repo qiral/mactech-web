@@ -23,12 +23,12 @@ const EVENT_CONFIG = {
 }
 
 const SCHEDULE = [
-  { time: '10:15 - 11.00', title: 'Yazılım Geliştirme Hakkında Okulda Bahsedilmeyenler', speaker: 'Lemi Orhan Ergin', type: 'Panel' },
-  { time: '11.15 - 12.00', title: 'Introduction to LLMs', speaker: 'Emrah Mete', type: 'Panel'},
-  { time: '12.00 - 13.00', title: 'Pizza Molası', speaker: '', type: 'Sosyal' },
-  { time: '13.00 - 13.45', title: 'Yapay Zeka ile Veri Güvenliği', speaker: 'Atıl Samancıoğlu', type: 'Panel' },
-  { time: '14.00 - 14.45', title: 'Yazılım Sektöründe İletişim', speaker: 'Alican Yıldırım', type: 'Panel' },
-  { time: '15.00 - 15.45', title: 'Enterprise Application Development', speaker: 'Emre Savcı', type: 'Panel' }
+  { time: '10:15 - 11.00', title: '', speaker: 'Barış Yüceses', type: 'Panel' },
+  { time: '11.15 - 12.00', title: '', speaker: 'Atıl Samancıoğlu', type: 'Panel'},
+  { time: '12.00 - 13.00', title: 'Yemek Molası', speaker: '', type: 'Sosyal' },
+  { time: '13.00 - 13.45', title: '', speaker: 'Kardel Rüveyda Çetin', type: 'Panel' },
+  { time: '14.00 - 14.45', title: '', speaker: 'Lemi Orhan Ergin', type: 'Panel' },
+  { time: '15.00 - 15.45', title: '', speaker: 'Furkan Sönmez', type: 'Panel' }
 ]
 
 const SPEAKERS = [
@@ -64,57 +64,107 @@ const SPEAKERS = [
     accent: 'from-blue-500',
     linkedin: 'https://www.linkedin.com/in/kardelruveydacetin/'
   },
+  { 
+    name: 'Furkan Sönmez', 
+    title: 'Senior Software Engineer', 
+    company: 'Roamless', 
+    image: '/speakers/furkan-sonmez.jpg',
+    accent: 'from-blue-500',
+    linkedin: 'https://www.linkedin.com/in/mrsonmez10'
+  }
 ]
 
 const SPONSORS = [
   { 
-    name: 'Pasaport Pizza', 
-    tier: 'Ana Sponsor', 
-    image: '/sponsors/pasaport-pizza-logo.jpg', 
-    webpage: 'https://www.pasaportpizza.com'
+    name: 'Unicourse', 
+    tier: 'Altın Sponsor', 
+    image: '/sponsors/unicourse-logo.jpg', 
+    webpage: 'https://www.unicourse.co'
   },
   { 
     name: 'Summerify', 
     tier: 'Stand Sponsoru', 
     image: '/sponsors/summerify-logo.jpg', 
-    webpage: 'https://www.cloudstack.com'
+    webpage: 'https://www.summarify.io'
   },
   { 
-    name: 'Reeder', 
+    name: 'Öğrenci Kariyeri', 
     tier: 'Stand Sponsoru', 
-    image: '/sponsors/reeder-logo.jpg', 
-    webpage: 'https://www.dataflow.com'
-  },
-  { 
-    name: 'Toptalent', 
-    tier: 'Çekiliş Sponsoru', 
-    image: '/sponsors/toptalent-logo.jpg', 
-    webpage: 'https://www.devtoolspro.com'
+    image: '/sponsors/ogrenci-kariyeri-logo.jpg', 
+    webpage: 'https://www.ogrencikariyeri.com'
   },
   { 
     name: 'Muhiku', 
     tier: 'Çekiliş Sponsoru', 
     image: '/sponsors/muhiku-logo.jpg', 
-    webpage: 'https://www.codehub.com'
+    webpage: 'https://www.muhiku.com'
   },
   { 
-    name: 'Oda Tiyatrosu', 
+    name: 'Yapı Kredi Yayınları', 
     tier: 'Çekiliş Sponsoru', 
-    image: '/sponsors/oda-tiyatrosu-logo.jpg', 
-    webpage: 'https://www.innovatelabs.com'
+    image: '/sponsors/yapi-kredi-yayinlari-logo.jpg', 
+    webpage: 'https://www.ykykultur.com.tr'
+  },
+  { 
+    name: 'Yves Rocher', 
+    tier: 'Çekiliş Sponsoru', 
+    image: '/sponsors/yves-rocher-logo.jpg', 
+    webpage: 'https://www.yvesrocher.com.tr'
   },
   { 
     name: 'Storytel', 
     tier: 'Çekiliş Sponsoru', 
     image: '/sponsors/storytel-logo.jpg', 
-    webpage: 'https://www.storytel.com'
+    webpage: 'https://www.storytel.com/tr'
   },
   { 
-    name: 'Truva Akademi', 
+    name: 'Miuul', 
     tier: 'Çekiliş Sponsoru', 
-    image: '/sponsors/truva-akademi-logo.jpg', 
-    webpage: 'https://www.truvaakademi.com'
-  }
+    image: '/sponsors/miuul-logo.jpg', 
+    webpage: 'https://www.miuul.com'
+  },
+  { 
+    name: 'Jerf', 
+    tier: 'Çekiliş Sponsoru', 
+    image: '/sponsors/jerf-logo.jpg', 
+    webpage: 'https://www.jerf.com.tr'
+  },
+  { 
+    name: 'Toptalent', 
+    tier: 'Medya Sponsoru', 
+    image: '/sponsors/toptalent-logo.jpg', 
+    webpage: 'https://www.toptalent.co'
+  },
+  { 
+    name: 'Univerlist', 
+    tier: 'Medya Sponsoru', 
+    image: '/sponsors/univerlist-logo.jpg', 
+    webpage: 'https://www.univerlist.com'
+  },
+  { 
+    name: 'Nuh\'un Ankara Makarnası', 
+    tier: 'Yemek Sponsoru', 
+    image: '/sponsors/nuhun-ankara-logo.jpg', 
+    webpage: 'https://www.nuh.com.tr'
+  },
+  { 
+    name: 'Gaziantepli Taha Usta', 
+    tier: 'Yemek Sponsoru', 
+    image: '/sponsors/taha-usta-logo.jpg', 
+    webpage: 'https://www.instagram.com/gazianteplitahausta/'
+  },
+  { 
+    name: 'Nescafe', 
+    tier: 'İçecek Sponsoru', 
+    image: '/sponsors/nescafe-logo.jpg', 
+    webpage: 'https://www.nescafe.com/tr/'
+  },
+  { 
+    name: 'Scala Yayıncılık', 
+    tier: 'İçecek Sponsoru', 
+    image: '/sponsors/scala-logo.jpg', 
+    webpage: 'https://www.scalakitapci.com'
+  },
 ]
 
 const HIGHLIGHTS = [
@@ -417,7 +467,7 @@ export default function Home() {
                     className="object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60" />
-                  
+
                   <div className="absolute top-4 right-4 p-2 bg-black/80 backdrop-blur rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
                     <ExternalLink className="w-4 h-4" />
                   </div>
