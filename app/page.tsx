@@ -23,12 +23,13 @@ const EVENT_CONFIG = {
 }
 
 const SCHEDULE = [
-  { time: '10:15 - 11.00', title: '', speaker: 'Barış Yüceses', type: 'Panel' },
-  { time: '11.15 - 12.00', title: '', speaker: 'Atıl Samancıoğlu', type: 'Panel'},
+  { time: '10:15 - 11.00', title: 'Yapay Zeka ve Kurumsal Şirketler', speaker: 'Barış Yüceses', type: 'Panel' },
+  { time: '11.15 - 12.00', title: 'Siber Güvenlik', speaker: 'Atıl Samancıoğlu', type: 'Panel'},
   { time: '12.00 - 13.00', title: 'Yemek Molası', speaker: '', type: 'Sosyal' },
-  { time: '13.00 - 13.45', title: '', speaker: 'Kardel Rüveyda Çetin', type: 'Panel' },
-  { time: '14.00 - 14.45', title: '', speaker: 'Lemi Orhan Ergin', type: 'Panel' },
-  { time: '15.00 - 15.45', title: '', speaker: 'Furkan Sönmez', type: 'Panel' }
+  { time: '13.00 - 13.45', title: 'Agentic AI', speaker: 'Kardel Rüveyda Çetin', type: 'Panel' },
+  { time: '14.00 - 14.45', title: 'Unlearn OOP: Back to Origins', speaker: 'Lemi Orhan Ergin', type: 'Panel' },
+  { time: '15.00 - 15.45', title: 'Bilgisayar Mühendisliği ve Yapay Zeka', speaker: 'Furkan Sönmez', type: 'Panel' },
+  { time: '16.00 - 16.45', title: 'Yazılım Sektöründe İletişim', speaker: 'Alican Yıldırım', type: 'Panel' }
 ]
 
 const SPEAKERS = [
@@ -71,10 +72,24 @@ const SPEAKERS = [
     image: '/speakers/furkan-sonmez.jpg',
     accent: 'from-blue-500',
     linkedin: 'https://www.linkedin.com/in/mrsonmez10'
+  },
+  { 
+    name: 'Alican Yıldırım', 
+    title: 'IT Manager', 
+    company: 'Pasaport Pizza', 
+    image: '/speakers/alican-yildirim.jpg',
+    accent: 'from-blue-500',
+    linkedin: 'https://www.linkedin.com/in/alicanyildirim/'
   }
 ]
 
 const SPONSORS = [
+  { 
+    name: 'Pasaport Pizza', 
+    tier: 'Platin Sponsor',
+    image: '/sponsors/pasaport-pizza-logo.jpg',
+    webpage: 'https://www.pasaportpizza.com'
+  }, 
   { 
     name: 'Unicourse', 
     tier: 'Altın Sponsor', 
@@ -128,6 +143,12 @@ const SPONSORS = [
     tier: 'Çekiliş Sponsoru', 
     image: '/sponsors/jerf-logo.jpg', 
     webpage: 'https://www.jerf.com.tr'
+  },
+  {
+    name: 'Hop Scooter',
+    tier: 'Çekiliş Sponsoru',
+    image: '/sponsors/hoplagit-logo.jpg',
+    webpage: 'https://www.hoplagit.com'
   },
   { 
     name: 'Toptalent', 
@@ -384,7 +405,7 @@ export default function Home() {
         <div className="max-w-5xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-black mb-16">Konuşmacılar</h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {SPEAKERS.map((speaker, i) => (
               <a
                 key={i}
@@ -393,7 +414,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="group relative overflow-hidden rounded-xl border border-white/10 hover:border-purple-400/50 transition-all duration-300 cursor-pointer"
               >
-                <div className="relative h-64 md:h-80 overflow-hidden bg-white/5">
+                <div className="relative aspect-square overflow-hidden bg-white/5">
                   <Image
                     src={speaker.image || "/placeholder.svg"} 
                     alt={speaker.name}
@@ -466,7 +487,7 @@ export default function Home() {
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-300"
                   />
-
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60" />
 
                   <div className="absolute top-4 right-4 p-2 bg-black/80 backdrop-blur rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
                     <ExternalLink className="w-4 h-4" />
