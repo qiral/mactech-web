@@ -71,24 +71,10 @@ const SPEAKERS = [
     image: '/speakers/furkan-sonmez.jpg',
     accent: 'from-blue-500',
     linkedin: 'https://www.linkedin.com/in/mrsonmez10'
-  },
-  { 
-    name: 'Alican Yıldırım', 
-    title: 'IT Manager', 
-    company: 'Pasaport Pizza', 
-    image: '/speakers/alican-yildirim.jpg',
-    accent: 'from-blue-500',
-    linkedin: 'https://www.linkedin.com/in/alicanyildirim/'
   }
 ]
 
 const SPONSORS = [
-  { 
-    name: 'Pasaport Pizza', 
-    tier: 'Platin Sponsor',
-    image: '/sponsors/pasaport-pizza-logo.jpg',
-    webpage: 'https://www.pasaportpizza.com'
-  }, 
   { 
     name: 'Unicourse', 
     tier: 'Altın Sponsor', 
