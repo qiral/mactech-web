@@ -28,8 +28,7 @@ const SCHEDULE = [
   { time: '12.00 - 13.00', title: 'Yemek Molası', speaker: '', type: 'Sosyal' },
   { time: '13.00 - 13.45', title: 'Agentic AI', speaker: 'Kardel Rüveyda Çetin', type: 'Panel' },
   { time: '14.00 - 14.45', title: 'Unlearn OOP: Back to Origins', speaker: 'Lemi Orhan Ergin', type: 'Panel' },
-  { time: '15.00 - 15.45', title: 'Bilgisayar Mühendisliği ve Yapay Zeka', speaker: 'Furkan Sönmez', type: 'Panel' },
-  { time: '16.00 - 16.45', title: 'Yazılım Sektöründe İletişim', speaker: 'Alican Yıldırım', type: 'Panel' }
+  { time: '15.00 - 15.45', title: 'Bilgisayar Mühendisliği ve Yapay Zeka', speaker: 'Furkan Sönmez', type: 'Panel' }
 ]
 
 const SPEAKERS = [
