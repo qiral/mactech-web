@@ -28,8 +28,7 @@ const SCHEDULE = [
   { time: '12.00 - 13.00', title: 'Yemek Molası', speaker: '', type: 'Sosyal' },
   { time: '13.00 - 13.45', title: 'Agentic AI', speaker: 'Kardel Rüveyda Çetin', type: 'Panel' },
   { time: '14.00 - 14.45', title: 'Unlearn OOP: Back to Origins', speaker: 'Lemi Orhan Ergin', type: 'Panel' },
-  { time: '15.00 - 15.45', title: 'Bilgisayar Mühendisliği ve Yapay Zeka', speaker: 'Furkan Sönmez', type: 'Panel' },
-  { time: '16.00 - 16.45', title: 'Yazılım Sektöründe İletişim', speaker: 'Alican Yıldırım', type: 'Panel' }
+  { time: '15.00 - 15.45', title: 'Bilgisayar Mühendisliği ve Yapay Zeka', speaker: 'Furkan Sönmez', type: 'Panel' }
 ]
 
 const SPEAKERS = [
@@ -72,24 +71,10 @@ const SPEAKERS = [
     image: '/speakers/furkan-sonmez.jpg',
     accent: 'from-blue-500',
     linkedin: 'https://www.linkedin.com/in/mrsonmez10'
-  },
-  { 
-    name: 'Alican Yıldırım', 
-    title: 'IT Manager', 
-    company: 'Pasaport Pizza', 
-    image: '/speakers/alican-yildirim.jpg',
-    accent: 'from-blue-500',
-    linkedin: 'https://www.linkedin.com/in/alicanyildirim/'
   }
 ]
 
 const SPONSORS = [
-  { 
-    name: 'Pasaport Pizza', 
-    tier: 'Platin Sponsor',
-    image: '/sponsors/pasaport-pizza-logo.jpg',
-    webpage: 'https://www.pasaportpizza.com'
-  }, 
   { 
     name: 'Unicourse', 
     tier: 'Altın Sponsor', 
@@ -405,14 +390,14 @@ export default function Home() {
         <div className="max-w-5xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-black mb-16">Konuşmacılar</h2>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex flex-wrap justify-center gap-6">
             {SPEAKERS.map((speaker, i) => (
               <a
                 key={i}
                 href={speaker.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative overflow-hidden rounded-xl border border-white/10 hover:border-purple-400/50 transition-all duration-300 cursor-pointer"
+                className="group relative overflow-hidden rounded-xl border border-white/10 hover:border-purple-400/50 transition-all duration-300 cursor-pointer w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
               >
                 <div className="relative aspect-square overflow-hidden bg-white/5">
                   <Image
