@@ -26,7 +26,7 @@ const SCHEDULE = [
   { time: '10:15 - 11.00', title: 'Yapay Zeka ve Kurumsal Şirketler', speaker: 'Barış Yüceses', type: 'Panel' },
   { time: '11.15 - 12.00', title: 'Siber Güvenlik', speaker: 'Atıl Samancıoğlu', type: 'Panel'},
   { time: '12.00 - 13.00', title: 'Yemek Molası', speaker: '', type: 'Sosyal' },
-  { time: '13.00 - 13.45', title: 'Agentic AI', speaker: 'Kardel Rüveyda Çetin', type: 'Panel' },
+  { time: '13.00 - 13.45', title: 'Yazılımda Kariyer', speaker: 'Kardel Rüveyda Çetin', type: 'Panel' },
   { time: '14.00 - 14.45', title: 'Unlearn OOP: Back to Origins', speaker: 'Lemi Orhan Ergin', type: 'Panel' },
   { time: '15.00 - 15.45', title: 'Bilgisayar Mühendisliği ve Yapay Zeka', speaker: 'Furkan Sönmez', type: 'Panel' }
 ]
@@ -38,7 +38,7 @@ const SPEAKERS = [
     company: 'Craftgate', 
     image: '/speakers/lemi-orhan.jpg',
     accent: 'from-purple-500',
-    linkedin: 'https://www.linkedin.com/in/lemi-orhan-ergin/'
+    linkedin: 'https://www.linkedin.com/in/lemiorhan/'
   },
   { 
     name: 'Atıl Samancıoğlu', 
@@ -46,7 +46,7 @@ const SPEAKERS = [
     company: 'Academy Club', 
     image: '/speakers/atil-samancioglu.jpg',
     accent: 'from-blue-500',
-    linkedin: 'https://www.linkedin.com/in/atilsamancioglu/'
+    linkedin: 'https://www.linkedin.com/in/atıl-samancıoğlu-96028871/'
   },
   { 
     name: 'Barış Yüceses', 
