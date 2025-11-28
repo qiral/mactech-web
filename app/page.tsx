@@ -88,12 +88,6 @@ const SPONSORS = [
     webpage: 'https://www.summarify.io'
   },
   { 
-    name: 'Öğrenci Kariyeri', 
-    tier: 'Stand Sponsoru', 
-    image: '/sponsors/ogrenci-kariyeri-logo.jpg', 
-    webpage: 'https://www.ogrencikariyeri.com'
-  },
-  { 
     name: 'Muhiku', 
     tier: 'Çekiliş Sponsoru', 
     image: '/sponsors/muhiku-logo.jpg', 
@@ -134,6 +128,12 @@ const SPONSORS = [
     tier: 'Çekiliş Sponsoru',
     image: '/sponsors/hoplagit-logo.jpg',
     webpage: 'https://www.hoplagit.com'
+  },
+  { 
+    name: 'Öğrenci Kariyeri', 
+    tier: 'Medya Sponsoru', 
+    image: '/sponsors/ogrenci-kariyeri-logo.jpg', 
+    webpage: 'https://www.ogrencikariyeri.com'
   },
   { 
     name: 'Toptalent', 
