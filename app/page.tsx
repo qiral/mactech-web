@@ -219,7 +219,12 @@ export default function Home() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      const navbarHeight = 64
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY
+      window.scrollTo({
+        top: elementPosition - navbarHeight,
+        behavior: 'smooth'
+      })
     }
   }
 
@@ -328,7 +333,12 @@ export default function Home() {
                 Hemen Kaydolun <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/20 text-white hover:bg-white/5">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="w-full sm:w-auto border-white/20 text-white hover:bg-white/5 hover:text-white"
+              onClick={() => scrollToSection('schedule')}
+            >
               Daha Fazla Bilgi
             </Button>
           </div>
